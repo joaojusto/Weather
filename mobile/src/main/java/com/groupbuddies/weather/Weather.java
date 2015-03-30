@@ -4,16 +4,22 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-
+import android.widget.TextView;
 
 public class Weather extends Activity {
+    private TextView weatherInformation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
-    }
 
+        weatherInformation = (TextView) findViewById(R.id.textView);
+
+        WeatherData weatherData = new WeatherData(weatherInformation);
+
+        weatherData.execute("http://api.openweathermap.org/data/2.5/weather?q=Braga,pt&units=metric");
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
