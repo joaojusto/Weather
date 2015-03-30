@@ -23,7 +23,7 @@ import java.io.InputStreamReader;
  * Created by joaojusto on 30/03/15.
  */
 public class WeatherData extends AsyncTask<String, Integer, String> {
-    private JSONObject jsonWeather;
+    private City city;
     private TextView weatherInformation;
 
     public WeatherData(TextView weatherInformation) {
@@ -64,19 +64,9 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
     }
 
     protected void onPostExecute(String result) {
-        this.jsonWeather = parseJSON(result);
+        this.city = new City(parseJSON(result));
 
-
-
-        try {
-            JSONObject description = new JSONObject(this.jsonWeather.getJSONArray("weather").get(0).toString());
-            JSONObject main = new JSONObject(this.jsonWeather.getJSONObject("main").toString());
-
-            String city = this.jsonWeather.get("name").toString();
-            this.weatherInformation.setText(city + ", " + description.get("description").toString() + ", " + main.get("temp").toString() + " º");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        this.weatherInformation.setText(this.city.toString());
         Log.i("WeatherData", result);
     }
 
