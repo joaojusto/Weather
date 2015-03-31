@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public class Weather extends Activity {
+    private LinearLayout forecastTable = null;
     private RelativeLayout weatherInformation = null;
     private RelativeLayout weekDayInformation = null;
     private RelativeLayout loadingInformation = null;
@@ -17,11 +18,13 @@ public class Weather extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
+        forecastTable = (LinearLayout) findViewById(R.id.forecast_table);
         weatherInformation = (RelativeLayout) findViewById(R.id.main_content);
         loadingInformation = (RelativeLayout) findViewById(R.id.loading_information);
         weekDayInformation = (RelativeLayout) findViewById(R.id.city_date_information);
 
-        WeatherData weatherData = new WeatherData(weatherInformation, weekDayInformation, loadingInformation);
+        WeatherData weatherData = new WeatherData(weatherInformation, weekDayInformation,
+                loadingInformation, forecastTable);
 
         weatherData.execute(getResources().getString(R.string.api));
     }

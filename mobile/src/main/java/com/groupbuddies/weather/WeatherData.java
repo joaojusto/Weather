@@ -1,8 +1,10 @@
 package com.groupbuddies.weather;
 
+import android.graphics.LinearGradient;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -27,11 +29,15 @@ import java.util.Locale;
 public class WeatherData extends AsyncTask<String, Integer, String> {
     private City city;
 
+    private LinearLayout forecastTable = null;
     private RelativeLayout weatherInformation = null;
     private RelativeLayout weekDayInformation = null;
     private RelativeLayout loadingInformation = null;
 
-    public WeatherData(RelativeLayout weatherInformation, RelativeLayout weekDayInformation, RelativeLayout loadingInformation) {
+    public WeatherData(RelativeLayout weatherInformation, RelativeLayout weekDayInformation,
+                       RelativeLayout loadingInformation, LinearLayout forecastTable) {
+
+        this.forecastTable = forecastTable;
         this.weatherInformation = weatherInformation;
         this.weekDayInformation = weekDayInformation;
         this.loadingInformation = loadingInformation;
@@ -71,30 +77,13 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
     }
 
     protected void onPostExecute(String result) {
-        String amPm, month, weekDay;
-        Calendar calendar = Calendar.getInstance();
-        TextView cityName = (TextView) this.weekDayInformation.findViewById(R.id.city);
-        TextView dateAndTime = (TextView) this.weekDayInformation.findViewById(R.id.date);
-        TextView weekDayView = (TextView) this.weatherInformation.findViewById(R.id.week_day_info);
-        TextView temperatureView = (TextView) this.weatherInformation.findViewById(R.id.temperature);
-
-        amPm = calendar.get(Calendar.AM_PM) == 0 ? "PM" : "AM";
-        month = calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US).toUpperCase();
-        weekDay = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US) + " " + getDayPart();
-
-        weekDayView.setText(weekDay.toUpperCase());
-
         if (!result.isEmpty()) {
             this.city = CityParser.parseCity(result);
 
-            temperatureView.setText(this.city.getIntMaxTemperature() + "º / " + this.city.getIntMinTemperature() + "º");
+            setInformation();
 
             this.loadingInformation.setVisibility(View.GONE);
         }
-
-
-        cityName.setText(city.getName().toUpperCase());
-        dateAndTime.setText(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + " " + amPm + " / " + calendar.get(Calendar.DAY_OF_MONTH) + " " + month);
         Log.i("WeatherData", result);
     }
 
@@ -112,5 +101,25 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
             dayPart = "Night";
 
         return dayPart;
+    }
+
+    private void setInformation() {
+        String amPm, month, weekDay;
+        Calendar calendar = Calendar.getInstance();
+        TextView cityName = (TextView) this.weekDayInformation.findViewById(R.id.city);
+        TextView dateAndTime = (TextView) this.weekDayInformation.findViewById(R.id.date);
+        TextView weekDayView = (TextView) this.weatherInformation.findViewById(R.id.week_day_info);
+        TextView temperatureView = (TextView) this.weatherInformation.findViewById(R.id.temperature);
+
+        amPm = calendar.get(Calendar.AM_PM) == 0 ? "PM" : "AM";
+        month = calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US).toUpperCase();
+        weekDay = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US) + " " + getDayPart();
+
+        weekDayView.setText(weekDay.toUpperCase());
+
+        temperatureView.setText(this.city.getIntMaxTemperature() + "º / " + this.city.getIntMinTemperature() + "º");
+
+        cityName.setText(city.getName().toUpperCase());
+        dateAndTime.setText(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + " " + amPm + " / " + calendar.get(Calendar.DAY_OF_MONTH) + " " + month);
     }
 }
