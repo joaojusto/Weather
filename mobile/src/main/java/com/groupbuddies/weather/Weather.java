@@ -14,7 +14,7 @@ public class Weather extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        weatherInformation = (TextView) findViewById(R.id.textView);
+        weatherInformation = (TextView) findViewById(R.id.loadingLabel);
 
         WeatherData weatherData = new WeatherData(weatherInformation);
 
