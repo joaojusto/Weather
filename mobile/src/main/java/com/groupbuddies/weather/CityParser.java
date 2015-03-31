@@ -1,5 +1,6 @@
 package com.groupbuddies.weather;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -11,14 +12,17 @@ public class CityParser {
     public static City parseCity(String jsonCity) {
         City city = new City();
         JSONObject jsonCityObject = parseJSON(jsonCity);
-
         try {
-            CityParser.parseWind(jsonCityObject, city);
-            CityParser.parseClouds(jsonCityObject, city);
-            CityParser.parseCountry(jsonCityObject, city);
-            CityParser.parseIdAndName(jsonCityObject, city);
-            CityParser.parseDescription(jsonCityObject, city);
-            CityParser.parseTemperatureAndAltitude(jsonCityObject, city);
+            JSONArray jsonArray = jsonCityObject.getJSONArray("list");
+            JSONObject cityInfo = jsonCityObject.getJSONObject("city");
+            JSONObject cityNow = jsonArray.getJSONObject(0);
+
+            CityParser.parseWind(cityNow, city);
+            CityParser.parseClouds(cityNow, city);
+            CityParser.parseCountry(cityInfo, city);
+            CityParser.parseIdAndName(cityInfo, city);
+            CityParser.parseDescription(cityNow, city);
+            CityParser.parseTemperatureAndAltitude(cityNow, city);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -45,36 +49,28 @@ public class CityParser {
     }
 
     private static void parseTemperatureAndAltitude(JSONObject jsonCity, City city) throws JSONException {
-        JSONObject temperatureObject = jsonCity.getJSONObject("main");
+        JSONObject temperatureObject = jsonCity.getJSONObject("temp");
 
-        city.setHumidity((Integer) temperatureObject.get("humidity"));
+        city.setHumidity((Integer) jsonCity.get("humidity"));
 
-        city.setTemperature(Double.parseDouble(temperatureObject.get("temp").toString()));
-        city.setMinTemperature(Double.parseDouble(temperatureObject.get("temp_min").toString()));
-        city.setMaxTemperature(Double.parseDouble(temperatureObject.get("temp_max").toString()));
+        city.setTemperature(Double.parseDouble(temperatureObject.get("day").toString()));
+        city.setMinTemperature(Double.parseDouble(temperatureObject.get("min").toString()));
+        city.setMaxTemperature(Double.parseDouble(temperatureObject.get("max").toString()));
 
-        city.setPressure(Double.parseDouble(temperatureObject.get("pressure").toString()));
-        city.setSeaLevel(Double.parseDouble(temperatureObject.get("sea_level").toString()));
-        city.setGroundLevel(Double.parseDouble(temperatureObject.get("grnd_level").toString()));
+        city.setPressure(Double.parseDouble(jsonCity.get("pressure").toString()));
     }
 
     private static void parseWind(JSONObject jsonCity, City city) throws JSONException {
-        JSONObject windObject = jsonCity.getJSONObject("wind");
-
-        city.setWindSpeed(Double.parseDouble(windObject.get("speed").toString()));
-        city.setWindDirection(Double.parseDouble(windObject.get("deg").toString()));
+        city.setWindSpeed(Double.parseDouble(jsonCity.get("speed").toString()));
+        city.setWindDirection(Double.parseDouble(jsonCity.get("deg").toString()));
     }
 
     private static void parseCountry(JSONObject jsonCity, City city) throws JSONException {
-        JSONObject sysObject = jsonCity.getJSONObject("sys");
-
-        city.setCountry(sysObject.get("country").toString());
+        city.setCountry(jsonCity.get("country").toString());
     }
 
     private static void parseClouds(JSONObject jsonCity, City city) throws JSONException {
-        JSONObject cloudsObject = jsonCity.getJSONObject("clouds");
-
-        city.setClouds((Integer) cloudsObject.get("all"));
+        city.setClouds((Integer) jsonCity.get("clouds"));
     }
 
     private static void parseDescription(JSONObject jsonCity, City city) throws JSONException {

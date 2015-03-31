@@ -80,20 +80,20 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
 
         amPm = calendar.get(Calendar.AM_PM) == 0 ? "PM" : "AM";
         month = calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, Locale.US).toUpperCase();
-        weekDay = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US) + " / " + getDayPart();
+        weekDay = calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.LONG, Locale.US) + " " + getDayPart();
 
-        weekDayView.setText(weekDay);
+        weekDayView.setText(weekDay.toUpperCase());
 
-        if (result != null) {
+        if (!result.isEmpty()) {
             this.city = CityParser.parseCity(result);
 
-            temperatureView.setText("+ " + this.city.getIntMaxTemperature() + "º - " + this.city.getIntMinTemperature() + "º");
+            temperatureView.setText(this.city.getIntMaxTemperature() + "º / " + this.city.getIntMinTemperature() + "º");
 
             this.loadingInformation.setVisibility(View.GONE);
         }
 
 
-        cityName.setText(city.getName());
+        cityName.setText(city.getName().toUpperCase());
         dateAndTime.setText(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + " " + amPm + " / " + calendar.get(Calendar.DAY_OF_MONTH) + " " + month);
         Log.i("WeatherData", result);
     }
