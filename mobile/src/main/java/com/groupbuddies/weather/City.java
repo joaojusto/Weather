@@ -1,8 +1,5 @@
 package com.groupbuddies.weather;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 /**
  * Created by joaojusto on 30/03/15.
  */
@@ -26,83 +23,136 @@ public class City {
     private String weather;
     private String weatherDescription;
 
-    public City(JSONObject jsonCity) {
-        this.parseWind(jsonCity);
-        this.parseClouds(jsonCity);
-        this.parseCountry(jsonCity);
-        this.parseIdAndName(jsonCity);
-        this.parseDescription(jsonCity);
-        this.parseTemperatureAndAltitude(jsonCity);
+    public City() {
+
     }
 
-    private void parseIdAndName(JSONObject jsonCity) {
-        try {
-            this.id = (Integer) jsonCity.get("id");
-            this.name = jsonCity.get("name").toString();
-            this.coord = jsonCity.get("coord").toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public int getId() {
+        return id;
     }
 
-    private void parseTemperatureAndAltitude(JSONObject jsonCity) {
-        try {
-            JSONObject temperatureObject = jsonCity.getJSONObject("main");
-
-            this.humidity = (Integer) temperatureObject.get("humidity");
-
-            this.temperature = Double.parseDouble(temperatureObject.get("temp").toString());
-            this.minTemperature = Double.parseDouble(temperatureObject.get("temp_min").toString());
-            this.maxTemperature =  Double.parseDouble(temperatureObject.get("temp_max").toString());
-
-            this.pressure = (Integer) temperatureObject.get("pressure");
-            this.seaLevel = Double.parseDouble(temperatureObject.get("sea_level").toString());
-            this.groundLevel = Double.parseDouble(temperatureObject.get("grnd_level").toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void setId(int id) {
+        this.id = id;
     }
 
-    private void parseWind(JSONObject jsonCity) {
-        try {
-            JSONObject windObject = jsonCity.getJSONObject("wind");
-
-            this.windSpeed = Double.parseDouble(windObject.get("speed").toString());
-            this.windDirection = Double.parseDouble(windObject.get("deg").toString());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public int getClouds() {
+        return clouds;
     }
 
-    private void parseCountry(JSONObject jsonCity) {
-        try {
-            JSONObject sysObject = jsonCity.getJSONObject("sys");
-
-            this.country = sysObject.get("country").toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public void setClouds(int clouds) {
+        this.clouds = clouds;
     }
 
-    private void parseClouds(JSONObject jsonCity) {
-        try {
-            JSONObject cloudsObject = jsonCity.getJSONObject("clouds");
-
-            this.clouds = (Integer) cloudsObject.get("all");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public int getHumidity() {
+        return humidity;
     }
 
-    private void parseDescription(JSONObject jsonCity) {
-        try {
-            JSONObject descriptionObject = (JSONObject) jsonCity.getJSONArray("weather").get(0);
+    public void setHumidity(int humidity) {
+        this.humidity = humidity;
+    }
 
-            this.weather = descriptionObject.get("main").toString();
-            this.weatherDescription = descriptionObject.get("description").toString();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+    public double getPressure() {
+        return pressure;
+    }
+
+    public void setPressure(double pressure) {
+        this.pressure = pressure;
+    }
+
+    public double getSeaLevel() {
+        return seaLevel;
+    }
+
+    public void setSeaLevel(double seaLevel) {
+        this.seaLevel = seaLevel;
+    }
+
+    public double getWindSpeed() {
+        return windSpeed;
+    }
+
+    public void setWindSpeed(double windSpeed) {
+        this.windSpeed = windSpeed;
+    }
+
+    public double getGroundLevel() {
+        return groundLevel;
+    }
+
+    public void setGroundLevel(double groundLevel) {
+        this.groundLevel = groundLevel;
+    }
+
+    public double getTemperature() {
+        return temperature;
+    }
+
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
+    }
+
+    public double getWindDirection() {
+        return windDirection;
+    }
+
+    public void setWindDirection(double windDirection) {
+        this.windDirection = windDirection;
+    }
+
+    public double getMinTemperature() {
+        return minTemperature;
+    }
+
+    public void setMinTemperature(double minTemperature) {
+        this.minTemperature = minTemperature;
+    }
+
+    public double getMaxTemperature() {
+        return maxTemperature;
+    }
+
+    public void setMaxTemperature(double maxTemperature) {
+        this.maxTemperature = maxTemperature;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCoord() {
+        return coord;
+    }
+
+    public void setCoord(String coord) {
+        this.coord = coord;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getWeather() {
+        return weather;
+    }
+
+    public void setWeather(String weather) {
+        this.weather = weather;
+    }
+
+    public String getWeatherDescription() {
+        return weatherDescription;
+    }
+
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
     }
 
     @Override
