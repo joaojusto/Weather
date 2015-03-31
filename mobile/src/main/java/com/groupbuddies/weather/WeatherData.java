@@ -64,21 +64,9 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
     }
 
     protected void onPostExecute(String result) {
-        this.city = new City(parseJSON(result));
+        this.city = CityParser.parseCity(result);
 
         this.weatherInformation.setText(this.city.toString());
         Log.i("WeatherData", result);
-    }
-
-    private JSONObject parseJSON(String jsonString) {
-        JSONObject parsedJSON = null;
-
-        try {
-            parsedJSON = new JSONObject(jsonString);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        return parsedJSON;
     }
 }

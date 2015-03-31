@@ -8,21 +8,34 @@ import org.json.JSONObject;
  */
 public class CityParser {
 
-    public static City parseCity(JSONObject jsonCity) {
+    public static City parseCity(String jsonCity) {
         City city = new City();
+        JSONObject jsonCityObject = parseJSON(jsonCity);
 
         try {
-            CityParser.parseWind(jsonCity, city);
-            CityParser.parseClouds(jsonCity, city);
-            CityParser.parseCountry(jsonCity, city);
-            CityParser.parseIdAndName(jsonCity, city);
-            CityParser.parseDescription(jsonCity, city);
-            CityParser.parseTemperatureAndAltitude(jsonCity, city);
+            CityParser.parseWind(jsonCityObject, city);
+            CityParser.parseClouds(jsonCityObject, city);
+            CityParser.parseCountry(jsonCityObject, city);
+            CityParser.parseIdAndName(jsonCityObject, city);
+            CityParser.parseDescription(jsonCityObject, city);
+            CityParser.parseTemperatureAndAltitude(jsonCityObject, city);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
         return city;
+    }
+
+    private static JSONObject parseJSON(String jsonString) {
+        JSONObject parsedJSON = null;
+
+        try {
+            parsedJSON = new JSONObject(jsonString);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return parsedJSON;
     }
 
     private static void parseIdAndName(JSONObject jsonCity, City city) throws JSONException {
