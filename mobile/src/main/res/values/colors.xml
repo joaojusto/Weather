@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="text_color">#FFFFFF</color>
+    <color name="city_and_data_color">#F0F0F0</color>
     <color name="gradient_end_color">#6A94C6</color>
     <color name="gradient_start_color">#A4C7F0</color>
 </resources>

@@ -8,17 +8,19 @@ import android.widget.TextView;
 
 public class Weather extends Activity {
     private TextView weatherInformation = null;
+    private TextView weekDayInformation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        weatherInformation = (TextView) findViewById(R.id.loadingLabel);
+        weatherInformation = (TextView) findViewById(R.id.loading_label);
+        weekDayInformation = (TextView) findViewById(R.id.week_day_info);
 
         WeatherData weatherData = new WeatherData(weatherInformation);
 
-        weatherData.execute("http://api.openweathermap.org/data/2.5/weather?q=Braga,pt&units=metric");
+        weatherData.execute(getResources().getString(R.string.api));
     }
 
     @Override

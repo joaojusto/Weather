@@ -3,6 +3,6 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="api">http://google.pt</string>
+    <string name="api">http://api.openweathermap.org/data/2.5/weather?q=Braga,pt&amp;units=metric</string>
     <string name="loading_label">Loading weather information...</string>
 </resources>
