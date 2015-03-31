@@ -83,6 +83,7 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
             setInformation();
             setForecastInformation();
 
+            this.forecastTable.setVisibility(View.VISIBLE);
             this.loadingInformation.setVisibility(View.GONE);
         }
         Log.i("WeatherData", result);

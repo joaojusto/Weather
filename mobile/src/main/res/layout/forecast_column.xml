@@ -40,7 +40,7 @@
         android:id="@+id/forecast_min"
         android:text="-12º"
         android:textColor="@color/city_and_data_color"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="2dp"
         android:layout_below="@id/forecast_max"
         android:layout_centerHorizontal="true"
         android:layout_width="wrap_content"

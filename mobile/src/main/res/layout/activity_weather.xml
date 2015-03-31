@@ -13,7 +13,6 @@
 
         <TextView
             android:id="@+id/city"
-            android:text="Braga"
             android:textColor="@color/city_and_data_color"
             android:layout_alignParentLeft="true"
             android:layout_width="wrap_content"
@@ -22,7 +21,6 @@
         <TextView
             android:id="@+id/date"
             android:textColor="@color/city_and_data_color"
-            android:text="11:30 AM / 13 JUN"
             android:layout_alignParentRight="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -39,7 +37,6 @@
 
         <TextView
             android:id="@+id/week_day_info"
-            android:text="Tuesday / Morning"
             android:textSize="25dp"
             android:fontFamily=""
             android:textColor="@color/text_color"
@@ -49,7 +46,6 @@
 
         <TextView
             android:id="@+id/temperature"
-            android:text="+18º - 9º"
             android:textSize="20dp"
             android:layout_marginTop="10dp"
             android:fontFamily=""
@@ -68,6 +64,7 @@
 
         <RelativeLayout
             android:id="@+id/loading_information"
+            android:visibility="gone"
             android:layout_below="@id/weather_logo"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -87,7 +84,27 @@
                 android:layout_below="@id/loading_spinner"
                 android:layout_centerHorizontal="true"/>
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/day_forecast"
+            android:orientation="vertical"
+            android:layout_marginTop="150dp"
+            android:layout_below="@id/temperature"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/forecast_row"
+                android:id="@+id/forecast_day"/>
+
+            <include layout="@layout/forecast_row"
+                android:id="@+id/forecast_evening"/>
+
+            <include layout="@layout/forecast_row"
+                android:id="@+id/forecast_night"/>
+        </LinearLayout>
     </RelativeLayout>
 
-    <include layout="@layout/forecast_table"/>
+    <include layout="@layout/forecast_table"
+        android:visibility="visible"/>
 </RelativeLayout>

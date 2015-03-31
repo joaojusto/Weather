@@ -175,8 +175,6 @@ public class City {
 
     public void addForecast(Forecast forecast) {
         this.forecast.add(forecast);
-
-        Log.d("Weather", "size: " + this.forecast.size());
     }
 
     public Forecast getForecast(int i) {
