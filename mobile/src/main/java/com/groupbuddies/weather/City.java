@@ -103,12 +103,20 @@ public class City {
         return minTemperature;
     }
 
+    public int getIntMinTemperature() {
+        return (int) minTemperature;
+    }
+
     public void setMinTemperature(double minTemperature) {
         this.minTemperature = minTemperature;
     }
 
     public double getMaxTemperature() {
         return maxTemperature;
+    }
+
+    public int getIntMaxTemperature() {
+        return (int) maxTemperature;
     }
 
     public void setMaxTemperature(double maxTemperature) {

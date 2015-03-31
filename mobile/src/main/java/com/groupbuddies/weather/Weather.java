@@ -8,8 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Weather extends Activity {
-    private TextView weatherInformation = null;
-    private TextView weekDayInformation = null;
+    private RelativeLayout weatherInformation = null;
+    private RelativeLayout weekDayInformation = null;
     private RelativeLayout loadingInformation = null;
 
     @Override
@@ -17,9 +17,9 @@ public class Weather extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
 
-        weatherInformation = (TextView) findViewById(R.id.loading_label);
-        weekDayInformation = (TextView) findViewById(R.id.week_day_info);
+        weatherInformation = (RelativeLayout) findViewById(R.id.main_content);
         loadingInformation = (RelativeLayout) findViewById(R.id.loading_information);
+        weekDayInformation = (RelativeLayout) findViewById(R.id.city_date_information);
 
         WeatherData weatherData = new WeatherData(weatherInformation, weekDayInformation, loadingInformation);
 
