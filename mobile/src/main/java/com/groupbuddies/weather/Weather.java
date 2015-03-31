@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 public class Weather extends Activity {
     private TextView weatherInformation = null;
     private TextView weekDayInformation = null;
+    private RelativeLayout loadingInformation = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,8 +19,9 @@ public class Weather extends Activity {
 
         weatherInformation = (TextView) findViewById(R.id.loading_label);
         weekDayInformation = (TextView) findViewById(R.id.week_day_info);
+        loadingInformation = (RelativeLayout) findViewById(R.id.loading_information);
 
-        WeatherData weatherData = new WeatherData(weatherInformation);
+        WeatherData weatherData = new WeatherData(weatherInformation, weekDayInformation, loadingInformation);
 
         weatherData.execute(getResources().getString(R.string.api));
     }

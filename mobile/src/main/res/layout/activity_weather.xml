@@ -66,20 +66,27 @@
             android:layout_height="300dp"
             android:layout_centerHorizontal="true"/>
 
-        <ProgressBar
-            android:id="@+id/loading_spinner"
+        <RelativeLayout
+            android:id="@+id/loading_information"
             android:layout_below="@id/weather_logo"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/loading_label"
-            android:text="@string/loading_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/loading_spinner"
-            android:layout_centerHorizontal="true"/>
+            <ProgressBar
+                android:id="@+id/loading_spinner"
+                android:layout_centerHorizontal="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/loading_label"
+                android:text="@string/loading_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/loading_spinner"
+                android:layout_centerHorizontal="true"/>
+        </RelativeLayout>
     </RelativeLayout>
 
     <include layout="@layout/forecast_table"/>

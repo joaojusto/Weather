@@ -2,6 +2,8 @@ package com.groupbuddies.weather;
 
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import org.apache.http.HttpEntity;
@@ -11,8 +13,6 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,10 +24,15 @@ import java.io.InputStreamReader;
  */
 public class WeatherData extends AsyncTask<String, Integer, String> {
     private City city;
-    private TextView weatherInformation;
 
-    public WeatherData(TextView weatherInformation) {
+    private TextView weatherInformation = null;
+    private TextView weekDayInformation = null;
+    private RelativeLayout loadingInformation = null;
+
+    public WeatherData(TextView weatherInformation, TextView weekDayInformation, RelativeLayout loadingInformation) {
         this.weatherInformation = weatherInformation;
+        this.weekDayInformation = weekDayInformation;
+        this.loadingInformation = loadingInformation;
     }
 
     protected String doInBackground(String... urls) {
@@ -66,7 +71,9 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
     protected void onPostExecute(String result) {
         this.city = CityParser.parseCity(result);
 
+        this.loadingInformation.setVisibility(View.GONE);
         this.weatherInformation.setText(this.city.toString());
+
         Log.i("WeatherData", result);
     }
 }
