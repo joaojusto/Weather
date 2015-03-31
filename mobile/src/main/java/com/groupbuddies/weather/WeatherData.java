@@ -1,6 +1,5 @@
 package com.groupbuddies.weather;
 
-import android.graphics.LinearGradient;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +19,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -81,6 +81,7 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
             this.city = CityParser.parseCity(result);
 
             setInformation();
+            setForecastInformation();
 
             this.loadingInformation.setVisibility(View.GONE);
         }
@@ -88,7 +89,7 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
     }
 
     private String getDayPart() {
-        String dayPart = null;
+        String dayPart;
         Calendar calendar = Calendar.getInstance();
         int amPm = calendar.get(Calendar.AM_PM);
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
@@ -121,5 +122,41 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
 
         cityName.setText(city.getName().toUpperCase());
         dateAndTime.setText(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + " " + amPm + " / " + calendar.get(Calendar.DAY_OF_MONTH) + " " + month);
+    }
+
+    private ArrayList<RelativeLayout> getForecastColumns() {
+        ArrayList<RelativeLayout> forecastColumns = new ArrayList<>();
+        int childViewCount = this.forecastTable.getChildCount();
+
+        for(int i = 0; i < childViewCount; i++) {
+            forecastColumns.add((RelativeLayout) this.forecastTable.getChildAt(i));
+        }
+
+        return forecastColumns;
+    }
+
+    private void setForecastInformation() {
+        Calendar calendar = Calendar.getInstance();
+        ArrayList<RelativeLayout> forecastColumns = getForecastColumns();
+
+        int i = 0;
+
+        for(View column : forecastColumns) {
+            TextView weekDay = (TextView) column.findViewById(R.id.week_day);
+            TextView maxTemp = (TextView) column.findViewById(R.id.forecast_max);
+            TextView minTemp = (TextView) column.findViewById(R.id.forecast_min);
+            WeatherIcon weatherIcon = (WeatherIcon) column.findViewById(R.id.weather_icon);
+
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+            weekDay.setText(calendar.getDisplayName(Calendar.DAY_OF_WEEK, Calendar.SHORT, Locale.US).toUpperCase());
+
+            weatherIcon.setText(WeatherIcon.getIconCode(this.city.getForecast(i).getWeather()));
+
+            maxTemp.setText(this.city.getForecast(i).getIntMaxTemperature() + "º");
+            minTemp.setText(this.city.getForecast(i).getIntMinTemperature() + "º");
+
+            i++;
+        }
     }
 }

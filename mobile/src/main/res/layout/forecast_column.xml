@@ -37,7 +37,7 @@
         />
 
     <TextView
-        android:id="@+id/forecast_min_day_1"
+        android:id="@+id/forecast_min"
         android:text="-12º"
         android:textColor="@color/city_and_data_color"
         android:layout_marginTop="5dp"

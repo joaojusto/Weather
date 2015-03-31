@@ -17,6 +17,10 @@ public class CityParser {
             JSONObject cityInfo = jsonCityObject.getJSONObject("city");
             JSONObject cityNow = jsonArray.getJSONObject(0);
 
+            for (int i = 1; i < jsonArray.length(); i++) {
+                parseForecast(jsonArray.getJSONObject(i), city);
+            }
+
             CityParser.parseWind(cityNow, city);
             CityParser.parseClouds(cityNow, city);
             CityParser.parseCountry(cityInfo, city);
@@ -78,5 +82,20 @@ public class CityParser {
 
         city.setWeather(descriptionObject.get("main").toString());
         city.setWeatherDescription(descriptionObject.get("description").toString());
+    }
+
+    private static void parseForecast(JSONObject jsonForecast, City city) throws JSONException {
+        Forecast forecast = new Forecast();
+
+        JSONObject temperatureObject = jsonForecast.getJSONObject("temp");
+        JSONObject weatherDescription = jsonForecast.getJSONArray("weather").getJSONObject(0);
+
+        forecast.setTemp(Double.parseDouble(temperatureObject.get("day").toString()));
+        forecast.setMaxTemp(Double.parseDouble(temperatureObject.get("max").toString()));
+        forecast.setMinTemp(Double.parseDouble(temperatureObject.get("min").toString()));
+        forecast.setWeather(weatherDescription.get("icon").toString());
+        forecast.setDescription(weatherDescription.get("description").toString());
+
+        city.addForecast(forecast);
     }
 }

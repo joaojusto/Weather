@@ -1,5 +1,9 @@
 package com.groupbuddies.weather;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+
 /**
  * Created by joaojusto on 30/03/15.
  */
@@ -22,6 +26,8 @@ public class City {
     private String country;
     private String weather;
     private String weatherDescription;
+
+    private ArrayList<Forecast> forecast = new ArrayList<>();
 
     public City() {
 
@@ -161,6 +167,20 @@ public class City {
 
     public void setWeatherDescription(String weatherDescription) {
         this.weatherDescription = weatherDescription;
+    }
+
+    public ArrayList<Forecast> getForecasts() {
+        return forecast;
+    }
+
+    public void addForecast(Forecast forecast) {
+        this.forecast.add(forecast);
+
+        Log.d("Weather", "size: " + this.forecast.size());
+    }
+
+    public Forecast getForecast(int i) {
+        return this.forecast.get(i);
     }
 
     @Override
