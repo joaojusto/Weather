@@ -8,6 +8,7 @@
 
     <TextView
         android:id="@+id/week_day_info"
+        android:textColor="@color/text_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
