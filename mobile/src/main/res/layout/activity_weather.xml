@@ -64,7 +64,6 @@
 
         <RelativeLayout
             android:id="@+id/loading_information"
-            android:visibility="gone"
             android:layout_below="@id/weather_logo"
             android:layout_centerHorizontal="true"
             android:layout_width="wrap_content"
@@ -106,5 +105,5 @@
     </RelativeLayout>
 
     <include layout="@layout/forecast_table"
-        android:visibility="visible"/>
+        android:visibility="gone"/>
 </RelativeLayout>

@@ -14,14 +14,17 @@ import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.w3c.dom.Text;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
+import java.util.WeakHashMap;
 
 /**
  * Created by joaojusto on 30/03/15.
@@ -81,6 +84,7 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
             this.city = CityParser.parseCity(result);
 
             setInformation();
+            setDayInformation();
             setForecastInformation();
 
             this.forecastTable.setVisibility(View.VISIBLE);
@@ -125,15 +129,13 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
         dateAndTime.setText(calendar.get(Calendar.HOUR) + ":" + calendar.get(Calendar.MINUTE) + " " + amPm + " / " + calendar.get(Calendar.DAY_OF_MONTH) + " " + month);
     }
 
-    private ArrayList<RelativeLayout> getForecastColumns() {
-        ArrayList<RelativeLayout> forecastColumns = new ArrayList<>();
-        int childViewCount = this.forecastTable.getChildCount();
+    private void setDayInformation() {
+        ArrayList<LinearLayout> forescastRows = getDayForecastRows();
 
-        for(int i = 0; i < childViewCount; i++) {
-            forecastColumns.add((RelativeLayout) this.forecastTable.getChildAt(i));
-        }
+        setRowText(forescastRows.get(0), "day", this.city.getIntMaxTemperature(), this.city.getIntMinTemperature(), this.city.getWeather());
+        setRowText(forescastRows.get(1), "evening", this.city.getIntEveningTemperature(), this.city.getIntMinTemperature(), this.city.getWeather());
+        setRowText(forescastRows.get(2), "night", this.city.getIntNightTemperature(), this.city.getIntMinTemperature(), this.city.getWeather());
 
-        return forecastColumns;
     }
 
     private void setForecastInformation() {
@@ -159,5 +161,39 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
 
             i++;
         }
+    }
+
+    private ArrayList<RelativeLayout> getForecastColumns() {
+        ArrayList<RelativeLayout> forecastColumns = new ArrayList<>();
+        int childViewCount = this.forecastTable.getChildCount();
+
+        for(int i = 0; i < childViewCount; i++) {
+            forecastColumns.add((RelativeLayout) this.forecastTable.getChildAt(i));
+        }
+
+        return forecastColumns;
+    }
+
+    private ArrayList<LinearLayout> getDayForecastRows() {
+        ArrayList<LinearLayout> forecastRows = new ArrayList<>();
+        LinearLayout forecastDay = (LinearLayout) this.weatherInformation.findViewById(R.id.day_forecast);
+
+        int childViewCount = forecastDay.getChildCount();
+
+        for (int i = 0; i < childViewCount; i++) {
+            forecastRows.add((LinearLayout) forecastDay.getChildAt(i));
+        }
+
+        return forecastRows;
+    }
+
+    private void setRowText(LinearLayout row, String dayPart, int max, int min, String weather) {
+        TextView dayPartView = (TextView) row.findViewById(R.id.day_part);
+        TextView temperature = (TextView) row.findViewById(R.id.temperature);
+        WeatherIcon weatherIcon = (WeatherIcon) row.findViewById(R.id.weather_icon);
+
+        dayPartView.setText(dayPart.toUpperCase());
+        temperature.setText(max + "º");
+        weatherIcon.setText(WeatherIcon.getIconCode(weather));
     }
 }

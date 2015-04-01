@@ -1,7 +1,5 @@
 package com.groupbuddies.weather;
 
-import android.util.Log;
-
 import java.util.ArrayList;
 
 /**
@@ -20,6 +18,9 @@ public class City {
     private double windDirection;
     private double minTemperature;
     private double maxTemperature;
+    private double eveningTemperature;
+    private double nightTemperature;
+    private double morningTemperature;
 
     private String name;
     private String coord;
@@ -167,6 +168,42 @@ public class City {
 
     public void setWeatherDescription(String weatherDescription) {
         this.weatherDescription = weatherDescription;
+    }
+
+    public double getEveningTemperature() {
+        return eveningTemperature;
+    }
+
+    public int getIntEveningTemperature(){
+        return (int) eveningTemperature;
+    }
+
+    public void setEveningTemperature(double eveningTemperature) {
+        this.eveningTemperature = eveningTemperature;
+    }
+
+    public double getNightTemperature() {
+        return nightTemperature;
+    }
+
+    public int getIntNightTemperature() {
+        return (int) nightTemperature;
+    }
+
+    public void setNightTemperature(double nightTemperature) {
+        this.nightTemperature = nightTemperature;
+    }
+
+    public double getMorningTemperature() {
+        return morningTemperature;
+    }
+
+    public int getIntMorningTemperature() {
+        return (int) morningTemperature;
+    }
+
+    public void setMorningTemperature(double morningTemperature) {
+        this.morningTemperature = morningTemperature;
     }
 
     public ArrayList<Forecast> getForecasts() {

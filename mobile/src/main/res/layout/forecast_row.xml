@@ -7,38 +7,34 @@
 
     <com.groupbuddies.weather.WeatherIcon
         android:text=""
+        android:id="@+id/weather_icon"
         android:textSize="30dp"
+        android:textColor="@color/city_and_data_color"
         android:layout_width="wrap_content"
         android:layout_height="50dp" />
     <RelativeLayout
+        android:textColor="@color/city_and_data_color"
         android:layout_marginTop="10px"
         android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
         <TextView
+            android:textColor="@color/city_and_data_color"
             android:id="@+id/day_part"
             android:text="DAY"
             android:textSize="15dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <LinearLayout
-            android:id="@+id/temperature"
-            android:layout_below="@id/day_part"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
 
-            <TextView
-                android:text="33º"
-                android:textSize="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            <TextView
-                android:layout_marginLeft="10dp"
-                android:text="21º"
-                android:textSize="15dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
+        <TextView
+            android:textColor="@color/city_and_data_color"
+            android:text="33º"
+            android:layout_below="@id/day_part"
+            android:id="@+id/temperature"
+            android:textSize="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </RelativeLayout>
 </LinearLayout>

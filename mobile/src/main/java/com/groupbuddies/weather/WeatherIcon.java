@@ -52,7 +52,7 @@ public class WeatherIcon extends TextView {
         icons.put("02d", "");
         icons.put("03d", "");
         icons.put("04d", "");
-        icons.put("10d", "");
+        icons.put("10d", "");
         icons.put("09d", "");
         icons.put("11d", "");
         icons.put("13d", "");

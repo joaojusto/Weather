@@ -60,6 +60,9 @@ public class CityParser {
         city.setTemperature(Double.parseDouble(temperatureObject.get("day").toString()));
         city.setMinTemperature(Double.parseDouble(temperatureObject.get("min").toString()));
         city.setMaxTemperature(Double.parseDouble(temperatureObject.get("max").toString()));
+        city.setNightTemperature(Double.parseDouble(temperatureObject.get("night").toString()));
+        city.setMorningTemperature(Double.parseDouble(temperatureObject.get("morn").toString()));
+        city.setEveningTemperature(Double.parseDouble(temperatureObject.get("eve").toString()));
 
         city.setPressure(Double.parseDouble(jsonCity.get("pressure").toString()));
     }
@@ -80,7 +83,7 @@ public class CityParser {
     private static void parseDescription(JSONObject jsonCity, City city) throws JSONException {
         JSONObject descriptionObject = (JSONObject) jsonCity.getJSONArray("weather").get(0);
 
-        city.setWeather(descriptionObject.get("main").toString());
+        city.setWeather(descriptionObject.get("icon").toString());
         city.setWeatherDescription(descriptionObject.get("description").toString());
     }
 
