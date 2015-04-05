@@ -177,6 +177,7 @@ public class WeatherData extends AsyncTask<String, Integer, String> {
     private ArrayList<LinearLayout> getDayForecastRows() {
         ArrayList<LinearLayout> forecastRows = new ArrayList<>();
         LinearLayout forecastDay = (LinearLayout) this.weatherInformation.findViewById(R.id.day_forecast);
+        forecastDay.setVisibility(View.VISIBLE);
 
         int childViewCount = forecastDay.getChildCount();
 

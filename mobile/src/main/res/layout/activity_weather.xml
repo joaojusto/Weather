@@ -87,6 +87,7 @@
         <LinearLayout
             android:id="@+id/day_forecast"
             android:orientation="vertical"
+            android:visibility="gone"
             android:layout_marginTop="150dp"
             android:layout_below="@id/temperature"
             android:layout_centerHorizontal="true"
